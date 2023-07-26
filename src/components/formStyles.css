@@ -1,0 +1,23 @@
+.input-int {
+    width: 13%;
+    height: 18px;
+    margin-left: 2px;
+    align-items: start;
+    /* border-radius: 0.125rem; */
+    /* border-width: 5px; */
+    /* border-color: #000000;     */
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-column-end {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
