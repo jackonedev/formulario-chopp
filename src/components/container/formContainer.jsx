@@ -5,6 +5,7 @@ import { useState } from "react";
 import FormCliente from "../formCliente";
 import FormComodato from "../formComodato";
 import FormRecibo from "../formRecibo";
+import "../formStyles.css"
 
 function FormContainer() {
   // State 1: create a state for clientes
@@ -187,7 +188,7 @@ function FormContainer() {
         />
       </div>
       {/* Column 2 */}
-      <div className="form-column">
+      <div className="form-column-end">
         <FormRecibo
           formData={formDataRecibo}
           setFormData={setFormDataRecibo}
