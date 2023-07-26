@@ -1,0 +1,45 @@
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.App-logo {
+  width: 220px;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px; /* Puedes ajustar este valor para agregar espacio entre las columnas */
+}
+
+.form-column {
+  display: flex;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-link {
+  color: #000608;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
