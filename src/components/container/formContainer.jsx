@@ -122,56 +122,57 @@ function FormContainer() {
         console.error("Error al enviar la solicitud:", error);
       });
   };
+
   const handlePostSubmitRecibo = async (event) => {
     event.preventDefault();
 
-    const requestOptionsComodato = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formDataComodato),
-    };
+    try {
+      // Primera solicitud POST
+      const requestOptionsComodato = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formDataComodato),
+      };
 
-    fetch("http://localhost:8000/comodatos", requestOptionsComodato)
-      .then((response) => response.json())
-      .then((data) => {
-        // Manejar la respuesta del servidor
-        console.log("Respuesta del servidor:", data);
-        setComodatoId(data.id);
-        console.log("comodato_id:", data.id);
-        setFormDataRecibo((prevFormData) => ({
-          ...prevFormData,
-          comodato_id: data.id,
-        }));
-        const requestOptionsRecibo = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formDataRecibo),
-        };
-        return requestOptionsRecibo;
-      })
-      .then((requestOptions) => {
+      const responseComodato = await fetch(
+        "http://localhost:8000/comodatos",
+        requestOptionsComodato
+      );
+      const dataComodato = await responseComodato.json();
 
-        // Manejar la respuesta del servidor
-        console.log("Respuesta del servidor:", requestOptions);
-        try {
-          fetch("http://localhost:8000/recibos", requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-              // Manejar la respuesta del servidor
-              console.log("Respuesta del servidor:", data);
-            })
-            .catch((error) => {
-              // Manejar errores
-              console.error("Error al enviar la solicitud:", error);
-            });
-        } catch (error) {
-          console.error("Error al enviar la solicitud:", error);
-        }
-      })
-      .catch((error) => {
-        // Manejar errores
-        console.error("Error al enviar la solicitud:", error);
-      });
+      // Manejar la respuesta del servidor
+      console.log("Respuesta del servidor (Comodato):", dataComodato);
+
+      // Actualizar el estado de comodato_id
+      setComodatoId(dataComodato.id);
+      // Actualizar el estado de formDataRecibo
+      setFormDataRecibo((prevFormData) => ({
+        ...prevFormData,
+        comodato_id: dataComodato.id,
+      }));
+
+      // Utilizar formDataRecibo actualizado como body para la segunda solicitud POST
+      const requestOptionsRecibo = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formDataRecibo,
+          comodato_id: dataComodato.id, // Asegurarse de incluir el comodato_id actualizado en formDataRecibo
+        }),
+      };
+
+      const responseRecibo = await fetch(
+        "http://localhost:8000/recibos",
+        requestOptionsRecibo
+      );
+      const dataRecibo = await responseRecibo.json();
+
+      // Manejar la respuesta del servidor
+      console.log("Respuesta del servidor (Recibo):", dataRecibo);
+    } catch (error) {
+      // Manejar errores
+      console.error("Error al enviar la solicitud:", error);
+    }
   };
 
   return (
