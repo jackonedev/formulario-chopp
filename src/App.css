@@ -16,8 +16,7 @@
 .form-container {
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
-  /* Puedes ajustar este valor para agregar espacio entre las columnas */
+  margin-top: 30px;
 }
 
 
